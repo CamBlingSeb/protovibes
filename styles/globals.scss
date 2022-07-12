@@ -1,0 +1,20 @@
+@import "custom";
+
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Armata', Arial, Helvetica, sans-serif;
+  background: radial-gradient(circle at top left, #5c162e, #3c162f, #191528, #110e1b);
+  color: whitesmoke;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
