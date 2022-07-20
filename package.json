@@ -1,6 +1,12 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "engines": {
+    "node": "17.x"
+  },
+  "cacheDirectories": [
+    ".next/cache"
+  ],
   "private": true,
   "scripts": {
     "dev": "next dev",
