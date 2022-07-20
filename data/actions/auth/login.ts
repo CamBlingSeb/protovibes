@@ -7,9 +7,14 @@ export async function login(accessCode: string) {
         accessCode: accessCode
     }
 
-    const res = await axios.post('/api/auth', body, config).then(res => res.data);
+    try {
+        const res = await axios.post('/api/auth', body, config).then(res => res.data);
 
-    console.log('Login Response: ', res);
+        console.log('Login Response: ', res);
 
-    return res
+        return res
+    } catch (err) {
+        return { success: false }
+    }
+
 }

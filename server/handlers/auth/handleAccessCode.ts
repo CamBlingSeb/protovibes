@@ -1,12 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { CurrentUser } from '../../lib/session';
 
+const accessCodes = ['rabbit', 'silkworm', 'ajax', 'hoops']
+
 export async function handleAccessCode(req: NextApiRequest, res: NextApiResponse) {
     const { accessCode } = await req.body;
 
     try {
+        const accessCodeIndex = accessCodes.indexOf(accessCode);
         // check db for access code
-        if (accessCode !== '1234') {
+        if (accessCodeIndex === -1) {
             return res.status(401).json({ success: false })
         }
 

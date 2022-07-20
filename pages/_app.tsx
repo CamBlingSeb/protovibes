@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Layout>
         <Head>
           <title>ProtoVibes</title>
-          <meta name="description" content="Fast web audio downloader & conversion tool" />
+          <meta name="description" content="DJ Mix Prototyping Tools" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Component {...pageProps} />

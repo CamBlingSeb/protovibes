@@ -2,8 +2,8 @@ import type { CurrentUser } from '../../server/lib/session';
 import { Container, Accordion, Form, FloatingLabel, Button } from 'react-bootstrap';
 import classes from './styles/Dashboard.module.scss'
 import classnames from 'classnames/bind';
-
-import PV_AccordionItem from '../ui/PV_AccordionItem'
+import useUser from 'data/fetchers/auth/useUser';
+// import PV_AccordionItem from '../ui/PV_AccordionItem'
 import Converter from './converter/Converter'
 
 type DashboardProps = {
@@ -13,6 +13,10 @@ type DashboardProps = {
 let cx = classnames.bind(classes);
 
 export default function Dashboard({ user }: DashboardProps): JSX.Element {
+    useUser({
+        redirectTo: '/'
+    })
+
     return (
         <>
             <div>
