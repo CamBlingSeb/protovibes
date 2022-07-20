@@ -1,4 +1,4 @@
-import Link from 'next/Link';
+import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
 // import classes from './styles/Layout.module.scss';
 
