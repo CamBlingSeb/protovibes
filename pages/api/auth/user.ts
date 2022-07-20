@@ -1,4 +1,4 @@
-import { withIronSessionApiRoute } from "iron-session/next/dist";
+import { withIronSessionApiRoute } from "iron-session/next";
 import { sessionOptions, CurrentUser } from "server/lib/session";
 import { NextApiRequest, NextApiResponse } from "next";
 import { verifyUser } from "server/handlers/auth/verifyUser";

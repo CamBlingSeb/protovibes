@@ -175,7 +175,7 @@ export default function Prepare({
                             <Row>
                                 <Col xs={12} sm={12} md={4}>
                                     <div className={cx("text-center", classes.thumbnailContainer)}>
-                                        <Image src={thumb} fluid className={cx("mx-auto d-block", classes.videoThumbnail)} />
+                                        <Image alt={title} src={thumb} fluid className={cx("mx-auto d-block", classes.videoThumbnail)} />
                                     </div>
                                 </Col>
                                 <Col xs={12} sm={12} md={8}>
