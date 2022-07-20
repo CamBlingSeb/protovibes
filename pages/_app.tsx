@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import SSRProvider from 'react-bootstrap/SSRProvider'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.scss'
@@ -8,6 +9,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SSRProvider>
       <Layout>
+        <Head>
+          <title>ProtoVibes</title>
+          <meta name="description" content="Fast web audio downloader & conversion tool" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <Component {...pageProps} />
       </Layout>
     </SSRProvider>

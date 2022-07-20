@@ -1,24 +1,17 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import Landing from '../components/landing/Landing'
 import styles from '../styles/Home.module.scss'
+import useUser from '../data/fetchers/auth/useUser';
 
 const Home: NextPage = () => {
+  const { mutateUser } = useUser({
+    redirectTo: '/dash',
+    redirectIfFound: true
+  })
+
   return (
     <div className={styles.container}>
-      <Head>
-        <title>ProtoVibes</title>
-        <meta name="description" content="Fast web audio downloader & conversion tool" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-
-      </main>
-
-      <footer className={styles.footer}>
-
-      </footer>
+      <Landing mutateUser={mutateUser} />
     </div>
   )
 }

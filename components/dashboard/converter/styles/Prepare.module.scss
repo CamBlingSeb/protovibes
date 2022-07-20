@@ -1,0 +1,55 @@
+@import 'colors';
+@import 'fonts';
+
+.conversionPanel {
+    opacity: 0.75;
+}
+
+
+.thumbnailContainer {
+    height: 20rem;
+    width: 20rem;
+    min-width: 5rem;
+    // border: solid red 1px;
+    overflow: hidden;
+    display: block;
+}
+
+.videoThumbnail {
+    height: 100%;
+    // max-width: 170%;
+    object-fit: cover;
+    // object-position: ;
+    // margin-left: auto;
+    // margin-right: auto;
+    // border: solid red 1px;
+    // display: inline-block;
+}
+
+.trackInfoHeader {
+    background-color: $navysteel;
+    padding-top: 1.25rem;
+    padding-bottom: 1rem;
+    padding-left: 0.75rem;
+
+    h3 {
+        line-height: 1.5rem;
+    }
+}
+
+.trackInfoBody {
+    background-color: $purplesteel;
+    // padding-top: 2rem;
+    // padding-bottom: 2rem;
+    padding: 2rem;
+
+    span {
+        display: block;
+        font-size: 1.4rem;
+        margin-bottom: 0.6rem;
+    }
+}
+
+.currentUrlDisplay {
+    background-color: #23223d;
+}

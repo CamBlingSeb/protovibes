@@ -1,4 +1,59 @@
+@use 'sass:color';
 /* Set Bootstrap SCSS Variables */
 
+/* Theme Colors */
+$primary: #00BFB2;
+$secondary: #faf33e;
+$success: green;
+$danger: #ff2c55;
+$info: #C6CAED;
+$light: #d9dbf1;
+$dark: #1E162A;
+
+$steel: #23223d;
+$purplesteel: #231B35;
+$bluesteel: #142135;
+
+/* Form Styles */
+$input-bg: $steel;
+$input-color: $secondary;
+$input-placeholder-color: shade-color($primary, 40%);
+
+$input-disabled-bg: $steel;
+$input-disabled-border-color: color.adjust($light, $alpha: -0.5);
+$input-disabled-color: $primary;
+
+$input-font-size: 2rem;
+$input-padding-y-lg: 1.5rem;
+$input-padding-x-lg: 1.75rem;
+
+$form-label-font-size: 2rem;
+$form-label-color: $light;
+
+// $form-floating-height: add(5.5rem, 2px) !important;
+$form-floating-input-padding-b: 1rem;
+
+/* Accordion Styles */
+$accordion-bg: $steel;
+$accordion-color: $primary;
+$accordion-button-color: $primary;
+
+$accordion-body-padding-y: 2rem;
+$accordion-body-padding-x: 2.5rem;
+$accordion-icon-width: 1.6rem;
+
+$accordion-button-active-bg: $dark;
+
+/* Dropdown Styles */
+$dropdown-bg: $steel;
+$dropdown-color: $primary;
+$dropdown-font-size: 1.5rem;
+$dropdown-link-color: $primary;
+$dropdown-link-hover-bg: #036e7a;
+$dropdown-border-color: color.adjust($primary, $alpha: -0.5);
+$dropdown-box-shadow: 3px 5px 8px 20px rgba(0, 0, 0, 0.5);
+$caret-width: 0.5rem;
+$caret-vertical-align: $caret-width * .5;
+$dropdown-header-padding-x: 1rem;
 
 @import "~bootstrap/scss/bootstrap";

@@ -1,0 +1,20 @@
+@import 'fonts';
+@import 'colors';
+
+.pageContent {
+    flex: 1 0 auto;
+}
+
+.logoText {
+    font-family: $splash;
+    line-height: 4rem;
+    margin-bottom: 0;
+}
+
+.footer {
+    height: 20rem;
+    margin-top: 5rem;
+    background: $dark;
+    box-shadow: 0 6px 10px 20px rgba(0, 0, 0, 0.8);
+    position: relative;
+}

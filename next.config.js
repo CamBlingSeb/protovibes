@@ -6,6 +6,9 @@ const nextConfig = {
   swcMinify: true,
   sassOptions: {
     includePaths: [path.join(__dirname, '/styles')]
+  },
+  api: {
+    responseLimit: false
   }
 }
 

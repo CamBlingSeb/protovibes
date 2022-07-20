@@ -1,0 +1,76 @@
+@import 'colors';
+@import 'fonts';
+
+.dashboardHeader {
+    background-color: $steel;
+    box-shadow: 0 4px 20px 5px rgba(0, 0, 0, 0.8);
+    z-index: 3;
+    position: relative;
+}
+
+.dashHeaderText {
+    // color: blue;
+    font-family: $play;
+    font-size: 3rem;
+}
+
+.main {
+    height: 100%;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+    // display: block;
+
+}
+
+.panel {
+    border: solid black 1px;
+    border-radius: 15px;
+    z-index: 3;
+    position: relative;
+    // height: 60vh;
+    padding: 5rem;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 3px 4px 15px rgba(0, 0, 0, 0.8);
+}
+
+.skewedCornerLeftOuter {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 50%;
+    filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.5));
+}
+
+.skewedCornerLeft {
+    height: 100%;
+    width: 100%;
+    background-image: url('/images/mixer.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-clip-path: polygon(0 0, 80% 0, 35% 50%, 0 12%);
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
+    z-index: 0;
+
+}
+
+.skewedCornerRightOuter {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    filter: drop-shadow(-10px 10px 25px rgba(0, 0, 0, 0.7));
+}
+
+.skewedCornerRight {
+    height: 100%;
+    width: 100%;
+    background-image: url('/images/synth.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-clip-path: polygon(0 0, 80% 0, 35% 50%, 0 12%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    z-index: 0;
+}
