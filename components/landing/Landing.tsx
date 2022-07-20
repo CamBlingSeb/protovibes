@@ -51,6 +51,8 @@ export default function Landing({ mutateUser }: LandingProps): JSX.Element {
             setLoginRequestStatus(Progress.FAILED);
             setAccessCode({ code: '' })
             e.stopPropagation();
+        } finally {
+            // setLoginRequestStatus(Progress.IDLE);
         }
     }
 

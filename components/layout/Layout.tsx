@@ -13,7 +13,7 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
 
     return (
         <>
-            {user && <Header user={user} />}
+            {user && user.isLoggedIn && <Header user={user} />}
             <main className={classes.pageContent}>
                 {children}
             </main>
