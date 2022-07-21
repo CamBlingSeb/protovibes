@@ -3,12 +3,14 @@ import {
     Container,
     Form,
     FloatingLabel,
-    Button
+    Button,
+    Stack
 } from 'react-bootstrap';
 import type { VideoInfo } from 'types'
 import { Progress } from 'types';
 import { findVideoMetadata } from 'data/actions/converter/findVideoMetadata';
 import Spinner from '../../ui/Spinner';
+import { isValidYoutubeUrl } from 'common/utils/isValidYoutubeUrl';
 
 type SearchProps = {
     url: string;
@@ -22,12 +24,9 @@ export default function Search({
     onDataChange
 }: SearchProps): JSX.Element {
     const [urlSearchStatus, setUrlSearchStatus] = useState(Progress.IDLE);
+    const [showingInvalidUrlMsg, setShowingInvalidUrlMsg] = useState(false);
 
     const [validated, setValidated] = useState(false);
-
-    const isValidUrl = () => {
-        return true
-    }
 
     const parseTrackAndArtist = (title: string, channel: string) => {
         const regex = /^([\w\s]*)?(?:[\s]+[-][\s]+)([\w\s\(\)]*)/
@@ -39,11 +38,18 @@ export default function Search({
         }
     }
 
+    const showUrlInvalid = () => {
+        setShowingInvalidUrlMsg(true);
+        setTimeout(() => {
+            setShowingInvalidUrlMsg(false);
+        }, 3000)
+    }
+
     const handleSearch = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
-            if (isValidUrl()) {
+            if (isValidYoutubeUrl(url)) {
                 setValidated(true);
                 setUrlSearchStatus(Progress.PENDING)
                 const info = await findVideoMetadata(url);
@@ -58,7 +64,7 @@ export default function Search({
                 }
             } else {
                 e.stopPropagation();
-                console.log('Invalid Url');
+                showUrlInvalid();
             }
         } catch (err) {
             e.stopPropagation();
@@ -73,27 +79,37 @@ export default function Search({
                     <Spinner />
                 ) : (
                     <>
-                        <Container className="d-flex justify-content-center align-content-center">
-                            <Form noValidate validated={validated} onSubmit={handleSearch}>
-                                <Form.Label htmlFor="youtubeUrl" className="mb-4 text-center">Paste the URL of a YouTube video below to generate an audio file.</Form.Label>
-                                <FloatingLabel
-                                    controlId='youtubeUrl'
-                                    label='YouTube URL'
-                                    className='mb-3'
-                                >
-                                    <Form.Control
-                                        type='text'
-                                        name='url'
-                                        size="lg"
-                                        placeholder='https://www.youtube.com/...'
-                                        onChange={onDataChange}
-                                    />
-                                </FloatingLabel>
-                                <div className="d-grid">
-                                    <Button type="submit" variant="primary" size="lg">Search</Button>
-                                </div>
-                            </Form>
-                        </Container>
+                        <Stack gap={3}>
+                            <Container className="d-flex justify-content-center align-content-center">
+                                <Form noValidate validated={validated} onSubmit={handleSearch}>
+                                    <Form.Label htmlFor="youtubeUrl" className="mb-4 text-center">Paste the URL of a YouTube video below to generate an audio file.</Form.Label>
+                                    <FloatingLabel
+                                        controlId='youtubeUrl'
+                                        label='YouTube URL'
+                                        className='mb-3'
+                                    >
+                                        <Form.Control
+                                            type='text'
+                                            name='url'
+                                            size="lg"
+                                            placeholder='https://www.youtube.com/...'
+                                            onChange={onDataChange}
+                                        />
+                                    </FloatingLabel>
+                                    <div className="d-grid">
+                                        <Button type="submit" variant="primary" size="lg">Search</Button>
+                                    </div>
+                                </Form>
+                            </Container>
+                            {
+                                showingInvalidUrlMsg && (
+                                    <div className='d-block text-center'>
+                                        <span className="text-danger fs-3">Please enter a valid YouTube URL</span>
+                                    </div>
+                                )
+                            }
+
+                        </Stack>
                     </>
                 )
             }
