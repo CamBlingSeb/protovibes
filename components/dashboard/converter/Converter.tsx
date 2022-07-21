@@ -91,14 +91,14 @@ export default function Converter({ }: ConverterProps): JSX.Element {
         }
     }, [conversionStatus])
 
-    useEffect(() => {
-        if (artist && artist.length) {
-            console.log('Artist: ', artist);
-        }
-        if (track && track.length) {
-            console.log('Track: ', track);
-        }
-    }, [artist, track])
+    // useEffect(() => {
+    //     if (artist && artist.length) {
+    //         console.log('Artist: ', artist);
+    //     }
+    //     if (track && track.length) {
+    //         console.log('Track: ', track);
+    //     }
+    // }, [artist, track])
 
     return (
         <>

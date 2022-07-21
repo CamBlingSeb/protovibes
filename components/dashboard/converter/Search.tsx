@@ -31,11 +31,22 @@ export default function Search({
     const parseTrackAndArtist = (title: string, channel: string) => {
         const regex = /^([\w\s]*)?(?:[\s]+[-][\s]+)([\w\s\(\)]*)/
         const result = regex.exec(title);
-        console.log('Match: ', result)
-        return {
+        const payload = {
             artist: result && result[1] || channel,
             track: result && result[2] || title
         }
+
+        if (payload.artist.includes('- Topic')) {
+            const cleanArtist = payload.artist.split(' - ')[0];
+            payload.artist = cleanArtist;
+        }
+
+        if (payload.track.includes('(Original Mix)')) {
+            const cleanTrack = payload.track.split(' (Original Mix)')[0];
+            payload.track = cleanTrack;
+        }
+
+        return payload;
     }
 
     const showUrlInvalid = () => {

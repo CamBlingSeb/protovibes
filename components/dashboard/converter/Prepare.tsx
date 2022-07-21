@@ -193,6 +193,7 @@ export default function Prepare({
                                         <Col>
                                             <span>{`Bitrate: ${averageBitrate && +averageBitrate?.toFixed(2) || 0} kBit/s`}</span>
                                             <span>{`Sample Rate: ${averageSampleRate && Math.round(averageSampleRate / 1000) || 0} kHz`}</span>
+                                            <span>{`Key: Cannot Detect`}</span>
                                         </Col>
                                     </Row>
                                 </Col>
