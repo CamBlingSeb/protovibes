@@ -1,0 +1,65 @@
+@import 'colors';
+@import 'fonts';
+
+.dashHistory {
+    display: block;
+}
+
+.dashHistoryButton {
+    background: transparent;
+    border: none;
+    color: $primary;
+    display: inline-block;
+    transition: color ease-in 0.2s;
+
+    &:hover {
+        color: $secondary;
+    }
+}
+
+.historyItemOuter {
+    border: solid $steel 1px;
+    background: $bluesteel;
+    border-radius: 10px;
+}
+
+.thumbnailOuter {
+    height: 100%;
+    // border: solid cyan 1px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.thumbnailContainer {
+    height: 100%;
+    border: solid $light 1px;
+    border-radius: 10px;
+    height: 7rem;
+}
+
+.historyItemInfo {
+    display: grid;
+    grid-template-rows: 4rem auto;
+    grid-row-gap: 0;
+
+    // border: solid red 1px;
+
+    h3 {
+        // border: solid white 1px;
+        margin-bottom: 0rem;
+    }
+
+    small {
+        // border: solid red 1px;
+        display: block;
+        // line-height: 0.5rem;
+    }
+
+}
+
+.buyIcon {
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    border: solid cyan 1px;
+}

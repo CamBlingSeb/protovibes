@@ -17,7 +17,6 @@ export async function login(
         if (errorCallback) {
             errorCallback();
         }
-        console.log('Login Error: ', err);
         return err.response.data;
     }
 

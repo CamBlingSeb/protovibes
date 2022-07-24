@@ -56,4 +56,7 @@ $caret-width: 0.5rem;
 $caret-vertical-align: $caret-width * .5;
 $dropdown-header-padding-x: 1rem;
 
+/* Offcanvas Styles */
+$offcanvas-bg-color: $dark;
+
 @import "~bootstrap/scss/bootstrap";
