@@ -10,7 +10,7 @@ export async function handleAccessCode(req: NextApiRequest, res: NextApiResponse
         const accessCodeIndex = accessCodes.indexOf(accessCode);
         // check db for access code
         if (accessCodeIndex === -1) {
-            return res.status(401).json({ success: false })
+            return res.status(401).json({ isLoggedIn: false, accessCode: '' })
         }
 
         // create session object
@@ -22,6 +22,6 @@ export async function handleAccessCode(req: NextApiRequest, res: NextApiResponse
 
         return res.json(currentUser);
     } catch (err) {
-        return res.status(500)
+        return res.status(500).json({ isLoggedIn: false, accessCode: '' })
     }
 }

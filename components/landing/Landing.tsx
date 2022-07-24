@@ -10,6 +10,7 @@ import classnames from 'classnames/bind'
 import { KeyedMutator } from 'swr';
 import { CurrentUser } from 'server/lib/session'
 import { login } from 'data/actions/auth/login';
+import useUser from 'data/fetchers/auth/useUser';
 import Spinner from '../ui/Spinner';
 import { Progress } from 'types';
 
@@ -20,6 +21,8 @@ type LandingProps = {
 let cx = classnames.bind(classes)
 
 export default function Landing({ mutateUser }: LandingProps): JSX.Element {
+    const { user } = useUser();
+
     const [loginRequestStatus, setLoginRequestStatus] = useState(Progress.IDLE);
     const [accessCode, setAccessCode] = useState({
         code: ''
@@ -36,13 +39,19 @@ export default function Landing({ mutateUser }: LandingProps): JSX.Element {
         return code.length > 0 && loginRequestStatus === Progress.IDLE;
     }
 
+    const handleLoginError = () => {
+        setValidated(false);
+        setAccessCode({ code: '' })
+        setLoginRequestStatus(Progress.IDLE);
+    }
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             if (canSubmit()) {
                 setValidated(true);
                 setLoginRequestStatus(Progress.PENDING);
-                mutateUser(login(code))
+                mutateUser(login(code, handleLoginError))
             } else {
                 e.stopPropagation();
                 setAccessCode({ code: '' })
@@ -51,8 +60,6 @@ export default function Landing({ mutateUser }: LandingProps): JSX.Element {
             setLoginRequestStatus(Progress.FAILED);
             setAccessCode({ code: '' })
             e.stopPropagation();
-        } finally {
-            // setLoginRequestStatus(Progress.IDLE);
         }
     }
 

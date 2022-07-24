@@ -7,9 +7,7 @@ import Dashboard from "../../components/dashboard/Dashboard";
 export default function DashboardPage({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return (
         <>
-            {
-                user && user.isLoggedIn && (<Dashboard user={user} />)
-            }
+            <Dashboard />
         </>
     )
 }
