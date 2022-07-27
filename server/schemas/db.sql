@@ -93,23 +93,17 @@ CREATE TABLE IF NOT EXISTS `dev`.`conversions` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `source_id` VARCHAR(12) NULL,
   `user_id` INT NULL,
-  `track_id` INT NULL,
   `format` VARCHAR(10) NULL,
   `created_at` TIMESTAMP(4) NULL DEFAULT CURRENT_TIMESTAMP(4),
   PRIMARY KEY (`id`),
   INDEX `user_id_idx` (`user_id` ASC) VISIBLE,
   INDEX `source_id_idx` (`source_id` ASC) VISIBLE,
-  INDEX `track_id_idx` (`track_id` ASC) VISIBLE,
   FOREIGN KEY (`user_id`)
     REFERENCES `dev`.`users` (`user_id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   FOREIGN KEY (`source_id`)
     REFERENCES `dev`.`sources` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  FOREIGN KEY (`track_id`)
-    REFERENCES `dev`.`tracks` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

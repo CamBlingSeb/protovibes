@@ -1,6 +1,9 @@
+import { useEffect } from 'react';
 import { Offcanvas, Stack } from 'react-bootstrap';
 import classes from './styles/History.module.scss';
 import HistoryItem from './HistoryItem';
+import Spinner from '../../ui/Spinner';
+import useHistory from 'data/fetchers/history/useHistory';
 
 type HistoryProps = {
     showing: boolean;
@@ -12,6 +15,13 @@ export default function History({
     handleClose,
     ...props
 }: HistoryProps): JSX.Element {
+    const { history, loading, mutateHistory } = useHistory();
+
+    useEffect(() => {
+        if (history) {
+            console.log('History Updated: ', history);
+        }
+    }, [history])
 
     return (
         <>
@@ -20,12 +30,25 @@ export default function History({
                     <Offcanvas.Title className='fs-3 px-3 py-1 text-secondary'>History</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    <Stack gap={3}>
-                        <HistoryItem />
-                        <HistoryItem />
-                        <HistoryItem />
-                        <HistoryItem />
-                    </Stack>
+                    {
+                        loading ? (
+                            <Spinner />
+                        ) : (
+                            <Stack gap={3}>
+                                {history && history.length && history.map((item, index) => (
+                                    <HistoryItem
+                                        key={index}
+                                        track={item.track}
+                                        artist={item.artist}
+                                        url={item.url}
+                                        thumb={item.thumb}
+                                        format={item.format}
+                                    />
+                                )) || <span>No History Yet</span>}
+                            </Stack>
+                        )
+                    }
+
                 </Offcanvas.Body>
             </Offcanvas>
         </>

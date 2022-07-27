@@ -23,7 +23,7 @@ export async function findVideoMetadata(req: NextApiRequest, res: NextApiRespons
         console.log('No Existing Source Data, fetching...');
 
         // hit FastVibes API
-        const data = await axios.get('http://127.0.0.1:5000/meta/query', { params: { url: url } }).then(res => res.data)
+        const data = await axios.get('https://fastvibes-jfmyw.ondigitalocean.app/meta/query', { params: { url: url } }).then(res => res.data)
         console.log('API Data: ', data);
 
         // store artist in database

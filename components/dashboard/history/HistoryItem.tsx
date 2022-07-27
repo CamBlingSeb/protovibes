@@ -5,31 +5,47 @@ import {
     Row,
     Col,
     Placeholder,
-    Stack
+    Stack,
+    Image
 } from 'react-bootstrap'
 
-type HistoryItemProps = {}
+type HistoryItemProps = {
+    track: string;
+    artist: string;
+    url: string;
+    thumb: string;
+    format: string;
+}
 
 let cx = classnames.bind(classes);
 
-export default function HistoryItem({ }: HistoryItemProps): JSX.Element {
+export default function HistoryItem({
+    track,
+    artist,
+    url,
+    thumb,
+    format
+}: HistoryItemProps): JSX.Element {
     return (
         // <div >
         <Container className={classes.historyItemOuter}>
             <Row className='' md={12}>
                 <Col md={3} className={classes.thumbnailOuter}>
                     <div className={classes.thumbnailContainer}>
+                        <Image alt={track} src={thumb} fluid className={cx("mx-auto d-block opacity-75", classes.thumbnail)} />
                         <button className={classes.originalLink}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-play-btn-fill" viewBox="0 0 16 16">
-                                <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm6.79-6.907A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z" />
-                            </svg>
+                            <a href={url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-play-btn-fill" viewBox="0 0 16 16">
+                                    <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm6.79-6.907A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z" />
+                                </svg>
+                            </a>
                         </button>
                     </div>
                 </Col>
                 <Col md={8} className={cx('py-2', classes.historyItemInfo)}>
                     <div>
-                        <h3 className='align-text-bottom'>Track Name</h3>
-                        <small>Artist Name</small>
+                        <h3 className='align-text-bottom'>{track}</h3>
+                        <small>{artist}</small>
                     </div>
                     <div>
                         <Stack direction="horizontal" gap={4}>
