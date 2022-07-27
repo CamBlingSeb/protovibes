@@ -35,6 +35,23 @@
     border: solid $light 1px;
     border-radius: 10px;
     height: 7rem;
+    position: relative;
+}
+
+.originalLink {
+    background: transparent;
+    border: none;
+    color: $danger;
+    // border: solid red 1px;
+    position: absolute;
+    left: 0.1rem;
+    top: 0.2rem;
+    transition: color ease-in 0.2s;
+
+    &:hover {
+        cursor: pointer;
+        color: $secondary;
+    }
 }
 
 .historyItemInfo {
@@ -55,6 +72,28 @@
         // line-height: 0.5rem;
     }
 
+}
+
+// .historyItemActions {
+//     // border: solid red 1px;
+// }
+
+.infoButton {
+    transition: color ease-in 0.2s;
+
+    &:hover {
+        cursor: pointer;
+        color: $secondary;
+    }
+}
+
+.reconvertButton {
+    transition: color ease-in 0.2s;
+
+    &:hover {
+        cursor: pointer;
+        color: $secondary;
+    }
 }
 
 .buyIcon {

@@ -2,6 +2,7 @@ import type { IronSessionOptions } from 'iron-session'
 
 export type CurrentUser = {
     isLoggedIn: boolean;
+    userId: number;
     accessCode: string;
 }
 

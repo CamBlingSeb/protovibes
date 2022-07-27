@@ -1,20 +1,21 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { CurrentUser } from '../../lib/session';
-
-const accessCodes = ['rabbit', 'silkworm', 'ajax', 'hoops']
+import { Database } from '../../controllers/Database';
 
 export async function handleAccessCode(req: NextApiRequest, res: NextApiResponse) {
     const { accessCode } = await req.body;
 
     try {
-        const accessCodeIndex = accessCodes.indexOf(accessCode);
         // check db for access code
-        if (accessCodeIndex === -1) {
-            return res.status(401).json({ isLoggedIn: false, accessCode: '' })
+        const result = await Database.findUserByAccessCode(accessCode);
+        console.log('Result: ', result);
+
+        if (!result) {
+            return res.status(401).json({ isLoggedIn: false, userId: 0, accessCode: '' })
         }
 
         // create session object
-        const currentUser = { isLoggedIn: true, accessCode: accessCode } as CurrentUser;
+        const currentUser = { isLoggedIn: true, userId: result.userId, accessCode: result.accessCode } as CurrentUser;
 
         // store & save session object
         req.session.user = currentUser;
@@ -22,6 +23,6 @@ export async function handleAccessCode(req: NextApiRequest, res: NextApiResponse
 
         return res.json(currentUser);
     } catch (err) {
-        return res.status(500).json({ isLoggedIn: false, accessCode: '' })
+        return res.status(500).json({ isLoggedIn: false, userId: 0, accessCode: '' })
     }
 }
