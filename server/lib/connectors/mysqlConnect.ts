@@ -1,5 +1,5 @@
 import mysql from 'serverless-mysql';
-import { Connection, MysqlError } from 'mysql';
+import { Connection, OkPacket, MysqlError } from 'mysql';
 /**
  * Global is used here to maintain a cached connection across hot reloads
  * in development. This prevents connections growing exponentially
@@ -24,9 +24,9 @@ const db = mysql({
     onConnectError: (e: MysqlError) => { console.log('DB Connection Error: ', e.code) }
 });
 
-export default async function executeQuery({ query, values }: { query: string, values: any }) {
+export default async function executeQuery({ query, values }: { query: string, values: any }): Promise<OkPacket | any> {
     try {
-        const results = await db.query(query, values);
+        const results: OkPacket = await db.query(query, values);
         await db.end();
 
         return results;

@@ -3,7 +3,6 @@ export function isValidYoutubeUrl(url: string) {
 
     let match = url.match(regEx);
     if (match) {
-
         console.log('Match: ', match[1]);
         return match[1]
     }

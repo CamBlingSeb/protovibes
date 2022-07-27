@@ -1,10 +1,11 @@
 import axios from 'axios';
 import config from 'common/requestConfig';
 
-export async function findVideoMetadata(url: string) {
+export async function findVideoMetadata(url: string, youtubeId: string) {
     console.log('findVideo action called');
 
     const body = {
+        id: youtubeId,
         url: url
     }
 

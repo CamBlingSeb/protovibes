@@ -60,10 +60,11 @@ export default function Search({
         e.preventDefault();
 
         try {
-            if (isValidYoutubeUrl(url)) {
+            const youtubeId = isValidYoutubeUrl(url)
+            if (youtubeId) {
                 setValidated(true);
                 setUrlSearchStatus(Progress.PENDING)
-                const info = await findVideoMetadata(url);
+                const info = await findVideoMetadata(url, youtubeId);
 
                 if (info) {
                     const { artist, track } = parseTrackAndArtist(info.title, info.channel);
