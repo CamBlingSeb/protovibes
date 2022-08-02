@@ -54,17 +54,20 @@ export default function Landing({ }: LandingProps): JSX.Element {
             if (canSubmit()) {
                 setValidated(true);
                 setLoginRequestStatus(Progress.PENDING);
-                await login(code, handleLoginError);
-                mutateUser();
-                // mutateUser(login(code, handleLoginError))
+                // await login(code, handleLoginError);
+                // mutateUser();
+                mutateUser(login(code, handleLoginError), {
+                    populateCache: false,
+                    revalidate: true
+                })
             } else {
-                e.stopPropagation();
+                // e.stopPropagation();
                 setAccessCode({ code: '' })
             }
         } catch (err) {
             setLoginRequestStatus(Progress.FAILED);
             setAccessCode({ code: '' })
-            e.stopPropagation();
+            // e.stopPropagation();
         }
     }
 
