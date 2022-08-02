@@ -1,7 +1,8 @@
 import executeQuery from "server/lib/connectors/mysqlConnect";
 import {
     User,
-    Source
+    Source,
+    CombinedMetadata
 } from '../schemas';
 import {
     NotAuthorizedError
@@ -37,14 +38,41 @@ export class Database {
     /* Sources */
     static async findSavedSourceById(sourceId: string) {
         console.log('Searching for source By Id: ', sourceId);
-        const query = 'SELECT * FROM sources WHERE id = ?';
+
+        const query = `
+            SELECT * FROM (    
+                SELECT 
+                    sources.id AS sourceId, 
+                    sources.thumb AS thumb,
+                    sources.url AS url,
+                    sources.title AS title, 
+                    sources.channel AS channel, 
+                    sources.description AS description, 
+                    sources.bit_rate AS bit_rate, 
+                    sources.sample_rate AS sample_rate, 
+                    sources.duration AS duration,
+                    sources.duration_string AS durationString,
+                    tracks.id AS trackId,
+                    tracks.title AS track, 
+                    tracks.bpm AS bpm, 
+                    tracks.release_date AS releaseDate,
+                    artists.id AS artistId,
+                    artists.name AS artist, 
+                    artists.thumb_url AS artistThumb
+                    FROM sources 
+                JOIN tracks 
+                    ON sources.track_id = tracks.id 
+                JOIN artists 
+                    ON tracks.artist_id = artists.id
+            ) AS SOURCEDATA WHERE SOURCEDATA.sourceId = ?`;
+
         const val = [sourceId];
 
         try {
             const result = await executeQuery({
                 query: query,
                 values: val
-            }) as Source[];
+            }) as CombinedMetadata[];
 
             console.log('source search result: ', result);
 
@@ -53,30 +81,43 @@ export class Database {
             }
 
             const {
-                id,
+                sourceId,
+                thumb,
+                url,
                 title,
                 channel,
-                url,
-                thumb,
                 description,
-                duration,
-                duration_string,
-                sample_rate,
                 bit_rate,
-                track_id
+                sample_rate,
+                duration,
+                durationString,
+                trackId,
+                track,
+                bpm,
+                releaseDate,
+                artistId,
+                artist,
+                artistThumb
             } = result[0];
 
             return {
-                fileId: id,
+                fileId: sourceId,
+                thumb: thumb,
+                url: url,
                 title: title,
                 channel: channel,
-                url: url,
-                thumb: thumb,
                 description: description,
-                duration: duration_string || duration,
                 averageBitrate: bit_rate,
                 averageSampleRate: sample_rate,
-                trackId: track_id
+                duration: duration,
+                durationString: durationString,
+                trackId: trackId,
+                track: track,
+                bpm: bpm,
+                releaseDate: releaseDate && releaseDate.toLocaleString('en-US', { month: "numeric", day: "numeric", year: "numeric" }),
+                artistId: artistId,
+                artist: artist,
+                artistThumb: artistThumb
             }
         } catch (err) {
             return null;
@@ -102,11 +143,18 @@ export class Database {
     }
 
     /* Artists */
-    static async storeArtistData(artist: string) {
+    static async storeArtistData({
+        artist,
+        artistThumb
+    }: {
+        artist: string,
+        artistThumb: string
+    }) {
         /**@todo - check for preexisting artist before inserting */
         const query = 'INSERT INTO artists SET ?';
         const initialArtist = {
-            name: artist
+            name: artist,
+            thumb_url: artistThumb
         }
 
         const val = [initialArtist];
@@ -130,12 +178,30 @@ export class Database {
 
     /* Tracks */
 
-    static async storeTrackData(trackTitle: string, artistId: number) {
+    static async storeTrackData({
+        trackTitle,
+        artistId,
+        releaseDate,
+        isrc,
+        deezerId,
+        bpm
+    }: {
+        trackTitle: string;
+        artistId: number;
+        releaseDate: Date | string;
+        isrc: string;
+        deezerId: string;
+        bpm: number
+    }) {
         /**@todo - check for preexisting track before inserting */
         const query = 'INSERT INTO tracks SET ?';
         const initialTrack = {
             title: trackTitle,
-            artist_id: artistId
+            artist_id: artistId,
+            release_date: releaseDate,
+            bpm: bpm,
+            deezer_id: deezerId,
+            isrc: isrc
         }
 
         const val = [initialTrack];

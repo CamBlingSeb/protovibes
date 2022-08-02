@@ -39,9 +39,9 @@ CREATE TABLE IF NOT EXISTS `dev`.`artists` (
   `mbid` VARCHAR(100) NULL,
   `photo_url` VARCHAR(200) NULL,
   `legal_name` VARCHAR(100) NULL,
+  `thumb_url` VARCHAR(200) NULL,
   PRIMARY KEY (`id`, `name`))
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `dev`.`tracks`
@@ -50,9 +50,11 @@ CREATE TABLE IF NOT EXISTS `dev`.`tracks` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(100) NULL,
   `artist_id` INT NULL,
-  `trackscol` VARCHAR(45) NULL,
-  `release_year` YEAR NULL,
+  `release_date` DATE NULL,
   `mbid` VARCHAR(100) NULL,
+  `bpm` INT NULL,
+  `deezer_id` INT NULL,
+  `isrc` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   INDEX `artist_id_idx` (`artist_id` ASC) VISIBLE,
   FOREIGN KEY (`artist_id`)
@@ -60,7 +62,6 @@ CREATE TABLE IF NOT EXISTS `dev`.`tracks` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `dev`.`sources`
@@ -107,7 +108,6 @@ CREATE TABLE IF NOT EXISTS `dev`.`conversions` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `dev`.`track_links`

@@ -23,15 +23,25 @@ export async function findVideoMetadata(req: NextApiRequest, res: NextApiRespons
         console.log('No Existing Source Data, fetching...');
 
         // hit FastVibes API
-        const data = await axios.get('https://fastvibes-jfmyw.ondigitalocean.app/meta/query', { params: { url: url } }).then(res => res.data)
+        const data = await axios.get('http://127.0.0.1:5000/meta/query', { params: { url: url } }).then(res => res.data)
         console.log('API Data: ', data);
 
         // store artist in database
-        const artistData = await Database.storeArtistData(data.artist);
+        const artistData = await Database.storeArtistData({
+            artist: data.artist,
+            artistThumb: data.artistThumb
+        });
         const artistId = artistData && artistData.artistId;
         console.log('Artist ID: ', artistId);
         // store track in database
-        const trackData = await Database.storeTrackData(data.track, artistId);
+        const trackData = await Database.storeTrackData({
+            trackTitle: data.track,
+            artistId: artistId,
+            releaseDate: data.releaseDate,
+            isrc: data.isrc,
+            deezerId: data.dzid,
+            bpm: data.bpm
+        });
         const trackId = trackData && trackData.trackId;
         console.log('Track ID: ', trackId);
 
@@ -52,21 +62,25 @@ export async function findVideoMetadata(req: NextApiRequest, res: NextApiRespons
 
         console.log('InsertionResult: ', sourceData);
 
+
         return res.status(200).json({
-            url: url,
             fileId: data.fileId,
+            thumb: data.thumb,
+            url: url,
             title: data.title,
             channel: data.channel,
-            creator: data.creator || data.channel,
-            thumb: data.thumb,
             description: data.description,
-            duration: data.durationString || data.duration,
             averageBitrate: data.abr,
             averageSampleRate: data.asr,
+            duration: data.duration,
+            durationString: data.durationString,
+            trackId: trackId,
             track: data.track,
+            bpm: data.bpm,
+            releaseDate: data.releaseDate,
+            artistId: artistId,
             artist: data.artist,
-            album: data.album,
-            releaseYear: data.releaseYear
+            artistThumb: data.artistThumb
         })
     } catch (err) {
         console.log('Metadata Error: ', err)

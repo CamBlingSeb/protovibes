@@ -40,7 +40,7 @@ export default function Prepare({
     onDataChange,
     resetData
 }: PrepareProps): JSX.Element {
-    const { url, fileId, title, thumb, duration, fileFormat, averageBitrate, averageSampleRate, track, artist, album, releaseYear } = data;
+    const { url, fileId, title, thumb, artistThumb, duration, durationString, fileFormat, averageBitrate, averageSampleRate, bpm, track, artist, album, releaseDate } = data;
 
     const videoDataExists = () => {
         return url && title && url.length && title.length;
@@ -186,15 +186,48 @@ export default function Prepare({
                                     </Row>
                                     <Row className={classes.trackInfoBody}>
                                         <Col>
-                                            <span>{`Track: ${track || ''}`}</span>
-                                            <span>{`Artist: ${artist || ''}`}</span>
-                                            <span>{`Duration: ${duration}`}</span>
+                                            <span>Track: <b>{`${track || ''}`}</b></span>
+                                            <span>Artist: <b>{`${artist || ''}`}</b></span>
+                                            {album && <span>Album: <b>{`${album}`}</b></span> || <></>}
+                                            {durationString && <span>Duration: <b>{`${durationString}`}</b></span> || <></>}
+                                            {releaseDate && <span>Released: <b>{`${releaseDate}`}</b></span> || <></>}
                                         </Col>
                                         <Col>
-                                            <span>{`Bitrate: ${averageBitrate && +averageBitrate?.toFixed(2) || 0} kBit/s`}</span>
-                                            <span>{`Sample Rate: ${averageSampleRate && Math.round(averageSampleRate / 1000) || 0} kHz`}</span>
-                                            <span>{`Key: Cannot Detect`}</span>
+                                            <span>Bitrate: <b>{`${averageBitrate && +averageBitrate?.toFixed(2) || 0} kBit/s`}</b></span>
+                                            <span>Sample Rate: <b>{`${averageSampleRate && Math.round(averageSampleRate / 1000) || 0} kHz`}</b></span>
+                                            {bpm && bpm !== 0 && <span>BPM: <b>{`${bpm}`}</b></span> || <></>}
+                                            <span>Key: <b>{`Cannot Detect`}</b></span>
                                         </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
+            </Row>
+            <Row>
+                <Accordion defaultActiveKey="0" className="mb-5">
+                    <Accordion.Item eventKey="0">
+                        <Accordion.Header>
+                            <Container fluid>
+                                <h3>Artist</h3>
+                            </Container>
+                        </Accordion.Header>
+                        <Accordion.Body>
+                            <Row>
+                                <Col xs={12} sm={12} md={4}>
+                                    <div className={cx("text-center", classes.thumbnailContainer)}>
+                                        <Image alt={artist} src={artistThumb} fluid className={cx("mx-auto d-block", classes.videoThumbnail)} />
+                                    </div>
+                                </Col>
+                                <Col xs={12} sm={12} md={8}>
+                                    <Row className={classes.trackInfoHeader}>
+                                        <div>
+                                            <h3>{artist}</h3>
+                                        </div>
+                                    </Row>
+                                    <Row className={classes.trackInfoBody}>
+
                                     </Row>
                                 </Col>
                             </Row>

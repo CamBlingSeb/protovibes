@@ -23,7 +23,7 @@ export default function Dashboard({ }: DashboardProps): JSX.Element {
         router.replace('/');
     }
 
-    const [showingHistory, setShowingHistory] = useState(true);
+    const [showingHistory, setShowingHistory] = useState(false);
 
     const handleCloseHistory = () => setShowingHistory(false);
     const handleShowHistory = () => setShowingHistory(true);

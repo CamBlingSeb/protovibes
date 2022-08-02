@@ -15,7 +15,8 @@ export default function useHistory() {
     const [loading, setLoading] = useState(true);
     const { data: history, mutate: mutateHistory } = useSWR<History[]>('/api/history',
         {
-            revalidateOnMount: true
+            revalidateOnMount: true,
+            revalidateOnFocus: false
         });
 
     useEffect(() => {

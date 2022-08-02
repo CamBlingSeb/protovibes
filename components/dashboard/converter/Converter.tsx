@@ -20,6 +20,7 @@ export default function Converter({ }: ConverterProps): JSX.Element {
         thumb: '',
         description: '',
         duration: 0,
+        durationString: '',
         fileName: '',
         fileFormat: AudioOutputFormat.MP3,
         averageBitrate: 0,
@@ -37,6 +38,7 @@ export default function Converter({ }: ConverterProps): JSX.Element {
         thumb,
         description,
         duration,
+        durationString,
         fileName,
         fileFormat,
         averageBitrate,
@@ -72,6 +74,7 @@ export default function Converter({ }: ConverterProps): JSX.Element {
             thumb: '',
             description: '',
             duration: 0,
+            durationString: '',
             fileName: '',
             fileFormat: AudioOutputFormat.MP3,
             averageBitrate: 0,
@@ -90,15 +93,6 @@ export default function Converter({ }: ConverterProps): JSX.Element {
             resetData();
         }
     }, [conversionStatus])
-
-    // useEffect(() => {
-    //     if (artist && artist.length) {
-    //         console.log('Artist: ', artist);
-    //     }
-    //     if (track && track.length) {
-    //         console.log('Track: ', track);
-    //     }
-    // }, [artist, track])
 
     return (
         <>

@@ -33,6 +33,7 @@ export interface Track {
     artist_id: number;
     release_year?: number;
     mbid?: string;
+    bpm?: number;
 }
 
 export interface Artist {

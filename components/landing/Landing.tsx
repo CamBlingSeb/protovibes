@@ -15,13 +15,16 @@ import Spinner from '../ui/Spinner';
 import { Progress } from 'types';
 
 type LandingProps = {
-    mutateUser: KeyedMutator<CurrentUser>;
+
 }
 
 let cx = classnames.bind(classes)
 
-export default function Landing({ mutateUser }: LandingProps): JSX.Element {
-    const { user } = useUser();
+export default function Landing({ }: LandingProps): JSX.Element {
+    const { user, mutateUser } = useUser({
+        redirectTo: '/dash',
+        redirectIfFound: true
+    });
 
     const [loginRequestStatus, setLoginRequestStatus] = useState(Progress.IDLE);
     const [accessCode, setAccessCode] = useState({
