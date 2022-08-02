@@ -9,13 +9,14 @@ type HeaderProps = {
 }
 
 export default function Header({ user }: HeaderProps): JSX.Element {
-    const { mutateUser } = useUser({
-        redirectTo: '/'
-    })
+    const { mutateUser } = useUser()
 
-    const handleLogout = () => {
-        mutateUser(logout())
+    const handleLogout = async () => {
+        // const logoutProxy = await logout();
+        // console.log('Logout Proxy: ', logoutProxy);
+        await mutateUser(logout());
     }
+
     return (
         <header>
             <div className="px-3 py-3 bg-dark">

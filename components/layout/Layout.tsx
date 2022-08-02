@@ -10,14 +10,14 @@ type LayoutProps = {
 }
 
 export default function Layout({ children }: LayoutProps): JSX.Element {
-    const router = useRouter();
+    // const router = useRouter();
     const { user } = useUser();
 
-    if (router.route !== '/' && user && !user.isLoggedIn) {
-        console.log('Path: ', router.pathname);
-        console.log('Route', router.route);
-        router.replace('/');
-    }
+    // if (router.route !== '/' && user && !user.isLoggedIn) {
+    //     console.log('Path: ', router.pathname);
+    //     console.log('Route', router.route);
+    //     router.replace('/');
+    // }
 
     return (
         <>
