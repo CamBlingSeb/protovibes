@@ -15,9 +15,7 @@ let cx = classnames.bind(classes);
 
 export default function Dashboard({ }: DashboardProps): JSX.Element {
     const router = useRouter();
-    const { user } = useUser({
-        redirectTo: '/'
-    })
+    const { user } = useUser();
 
     if (user && !user.isLoggedIn) {
         router.replace('/');
