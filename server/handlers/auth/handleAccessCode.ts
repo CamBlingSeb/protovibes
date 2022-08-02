@@ -23,6 +23,7 @@ export async function handleAccessCode(req: NextApiRequest, res: NextApiResponse
 
         return res.json(currentUser);
     } catch (err) {
-        return res.status(500).json({ isLoggedIn: false, userId: 0, accessCode: '' })
+        req.session.destroy();
+        return res.json({ isLoggedIn: false, userId: 0, accessCode: '' })
     }
 }
