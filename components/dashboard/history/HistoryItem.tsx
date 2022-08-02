@@ -49,11 +49,11 @@ export default function HistoryItem({
                     </div>
                     <div>
                         <Stack direction="horizontal" gap={4}>
-                            <div className={classes.buyIcon}>
+                            {/* <div className={classes.buyIcon}>
 
                             </div>
                             <div className={classes.buyIcon}></div>
-                            <div className={classes.buyIcon}></div>
+                            <div className={classes.buyIcon}></div> */}
                         </Stack>
                     </div>
                 </Col>

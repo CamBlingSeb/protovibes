@@ -74,7 +74,7 @@ export class Database {
                 values: val
             }) as CombinedMetadata[];
 
-            console.log('source search result: ', result);
+            // console.log('source search result: ', result);
 
             if (result.length === 0) {
                 return null;
@@ -134,7 +134,7 @@ export class Database {
                 values: val
             })
 
-            console.log('Source Insertion Result: ', result);
+            // console.log('Source Insertion Result: ', result);
             return result;
         } catch (err) {
             console.log(err);
@@ -258,12 +258,28 @@ export class Database {
     }
 
     static async getConversionHistory(userId: number) {
-        const query = "SELECT * FROM (SELECT users.user_id AS user, source_id, format, url, thumb, tracks.title AS track, artists.name AS artist, conversions.created_at FROM conversions " +
-            "JOIN users ON conversions.user_id = users.user_id " +
-            "JOIN sources ON conversions.source_id = sources.id " +
-            "JOIN tracks ON sources.track_id = tracks.id " +
-            "JOIN artists ON tracks.artist_id = artists.id " +
-            "ORDER BY conversions.created_at DESC) AS HISTORY WHERE HISTORY.user = ?";
+        const query = `
+            SELECT * FROM (
+                SELECT 
+                    users.user_id AS user, 
+                    source_id, 
+                    format, 
+                    url, 
+                    thumb, 
+                    tracks.title AS track, 
+                    artists.name AS artist, 
+                    conversions.created_at 
+                    FROM conversions 
+                JOIN users 
+                    ON conversions.user_id = users.user_id  
+                JOIN sources 
+                    ON conversions.source_id = sources.id  
+                JOIN tracks 
+                    ON sources.track_id = tracks.id  
+                JOIN artists 
+                    ON tracks.artist_id = artists.id  
+                ORDER BY conversions.created_at DESC
+            ) AS HISTORY WHERE HISTORY.user = ?`;
 
         const val = [userId];
 
@@ -272,7 +288,7 @@ export class Database {
                 query: query,
                 values: val
             })
-            console.log('History Query Res: ', history);
+            // console.log('History Query Res: ', history);
 
             if (history.length === 0) return [];
 
