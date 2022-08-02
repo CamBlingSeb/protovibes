@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import classes from './styles/Dashboard.module.scss'
 import classnames from 'classnames/bind';
 import useUser from 'data/fetchers/auth/useUser';
@@ -14,12 +14,12 @@ type DashboardProps = {
 let cx = classnames.bind(classes);
 
 export default function Dashboard({ }: DashboardProps): JSX.Element {
-    const router = useRouter();
+    // const router = useRouter();
     const { user } = useUser();
 
-    if (user && !user.isLoggedIn) {
-        router.replace('/');
-    }
+    // if (user && !user.isLoggedIn) {
+    //     router.replace('/');
+    // }
 
     const [showingHistory, setShowingHistory] = useState(false);
 
