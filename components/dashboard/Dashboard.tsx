@@ -4,20 +4,22 @@ import { Container, Row, Col } from 'react-bootstrap';
 import classes from './styles/Dashboard.module.scss'
 import classnames from 'classnames/bind';
 import useUser from 'data/fetchers/auth/useUser';
+import { CurrentUser } from 'server/lib/session';
 import Converter from './converter/Converter'
 import History from './history/History'
 import ShowHistoryButton from './history/ShowHistoryButton';
 
 type DashboardProps = {
+    user: CurrentUser | undefined
 }
 
 let cx = classnames.bind(classes);
 
-export default function Dashboard({ }: DashboardProps): JSX.Element {
+export default function Dashboard({ user }: DashboardProps): JSX.Element {
     // const router = useRouter();
-    const { user } = useUser({
-        redirectTo: '/'
-    });
+    // const { user } = useUser({
+    //     redirectTo: '/'
+    // });
 
     // if (user && !user.isLoggedIn) {
     //     router.replace('/');
@@ -66,6 +68,7 @@ export default function Dashboard({ }: DashboardProps): JSX.Element {
                             </div>
                         </section>
                         <History
+                            user={user}
                             showing={showingHistory}
                             handleClose={handleCloseHistory}
                         />

@@ -10,8 +10,6 @@ export default function useUser({
     const { data: user, mutate: mutateUser } = useSWR<CurrentUser>('/api/auth/user');
 
     useEffect(() => {
-        console.log('User: ', user);
-        console.log('Redirect Directive: ', redirectTo);
         // if no redirect needed, just return (example: already on /dashboard)
         // if user data not yet there (fetch in progress, logged in or not) then don't do anything yet
         if (!redirectTo || !user) return
@@ -22,7 +20,6 @@ export default function useUser({
             // If redirectIfFound is also set, redirect if the user was found
             (redirectIfFound && user.isLoggedIn)
         ) {
-            console.log('Redirecting to ', redirectTo);
             Router.push(redirectTo)
         }
     }, [user, redirectIfFound, redirectTo])

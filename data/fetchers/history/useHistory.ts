@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import useSWR from 'swr';
+import { CurrentUser } from "server/lib/session";
 
 export interface History {
     source_id: string;
@@ -11,9 +12,9 @@ export interface History {
     created_at: Date;
 }
 
-export default function useHistory() {
+export default function useHistory(user: CurrentUser | undefined) {
     const [loading, setLoading] = useState(true);
-    const { data: history, mutate: mutateHistory } = useSWR<History[]>('/api/history',
+    const { data: history, mutate: mutateHistory } = useSWR<History[]>(user?.isLoggedIn ? '/api/history' : null,
         {
             revalidateOnMount: true,
             revalidateOnFocus: false

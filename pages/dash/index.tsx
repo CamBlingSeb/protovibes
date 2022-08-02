@@ -2,17 +2,23 @@
 // import { withIronSessionSsr } from "iron-session/next"
 // import { sessionOptions } from '../../server/lib/session';
 // import type { CurrentUser } from '../../server/lib/session';
-import Dashboard from "../../components/dashboard/Dashboard";
+import Dashboard from "components/dashboard/Dashboard";
+import Spinner from 'components/ui/Spinner';
+import useUser from "data/fetchers/auth/useUser";
 
+/* Rendered via Static Generation */
+export default function DashboardPage() {
+    const { user } = useUser({
+        redirectTo: '/'
+    })
 
+    if (!user || user.isLoggedIn === false) {
+        return <Spinner />
+    }
 
-export default function DashboardPage({ }) {
-    return (
-        <>
-            <Dashboard />
-        </>
-    )
+    return <Dashboard user={user} />
 }
+
 
 // export default function DashboardPage({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 //     return (

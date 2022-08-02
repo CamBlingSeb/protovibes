@@ -4,18 +4,22 @@ import classes from './styles/History.module.scss';
 import HistoryItem from './HistoryItem';
 import Spinner from '../../ui/Spinner';
 import useHistory from 'data/fetchers/history/useHistory';
+import { CurrentUser } from 'server/lib/session';
 
 type HistoryProps = {
+    user?: CurrentUser;
     showing: boolean;
     handleClose: () => void;
 }
 
 export default function History({
+    user,
     showing = false,
     handleClose,
     ...props
 }: HistoryProps): JSX.Element {
-    const { history, loading, mutateHistory } = useHistory();
+
+    const { history, loading, mutateHistory } = useHistory(user);
 
     useEffect(() => {
         if (history) {
