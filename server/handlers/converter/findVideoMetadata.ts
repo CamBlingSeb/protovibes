@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
-import type { VideoInfo } from 'types';
 import { Database } from 'server/controllers/Database';
 
 const API_ROOT_URL_LOCAL = "http://localhost:5000";
@@ -23,13 +22,14 @@ export async function findVideoMetadata(req: NextApiRequest, res: NextApiRespons
         console.log('No Existing Source Data, fetching...');
 
         // hit FastVibes API
-        const data = await axios.get('http://127.0.0.1:5000/meta/query', { params: { url: url } }).then(res => res.data)
-        // console.log('API Data: ', data);
+        const data = await axios.get('https://fastvibes-jfmyw.ondigitalocean.app/meta/query', { params: { url: url } }).then(res => res.data)
+        console.log('API Data: ', data);
 
         // store artist in database
         const artistData = await Database.storeArtistData({
             artist: data.artist,
-            artistThumb: data.artistThumb
+            artistThumb: data.artistThumb,
+            bio: data.artistBio
         });
         const artistId = artistData && artistData.artistId;
         // console.log('Artist ID: ', artistId);
@@ -80,7 +80,8 @@ export async function findVideoMetadata(req: NextApiRequest, res: NextApiRespons
             releaseDate: data.releaseDate,
             artistId: artistId,
             artist: data.artist,
-            artistThumb: data.artistThumb
+            artistThumb: data.artistThumb,
+            artistBio: data.artistBio
         })
     } catch (err) {
         console.log('Metadata Error: ', err)

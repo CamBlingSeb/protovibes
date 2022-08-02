@@ -19,4 +19,5 @@ export interface CombinedMetadata {
     artistId: number;
     artist: string;
     artistThumb?: string;
+    artistBio?: string;
 }

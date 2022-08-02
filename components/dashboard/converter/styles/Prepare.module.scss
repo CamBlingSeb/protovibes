@@ -55,6 +55,20 @@
     }
 }
 
+.artistInfoBody {
+    background-color: $purplesteel;
+    // padding-top: 2rem;
+    // padding-bottom: 2rem;
+    padding: 2rem;
+
+    p {
+        color: $info;
+        font-size: 1.6rem;
+        letter-spacing: 1px;
+        line-height: 2.8rem;
+    }
+}
+
 .currentUrlDisplay {
     background-color: #23223d;
 }

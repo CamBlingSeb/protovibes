@@ -4,6 +4,7 @@ export type VideoInfo = {
     title?: string;
     thumb?: string;
     artistThumb?: string;
+    artistBio?: string;
     description?: string;
     duration?: number;
     durationString?: string;

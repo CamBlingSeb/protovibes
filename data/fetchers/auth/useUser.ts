@@ -7,10 +7,7 @@ export default function useUser({
     redirectTo = '',
     redirectIfFound = false
 } = {}) {
-    const { data: user, mutate: mutateUser } = useSWR<CurrentUser>('/api/auth/user', {
-        revalidateOnMount: false,
-        revalidateOnFocus: false
-    });
+    const { data: user, mutate: mutateUser } = useSWR<CurrentUser>('/api/auth/user');
 
     useEffect(() => {
         // if no redirect needed, just return (example: already on /dashboard)

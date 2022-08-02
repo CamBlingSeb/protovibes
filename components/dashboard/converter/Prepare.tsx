@@ -40,7 +40,7 @@ export default function Prepare({
     onDataChange,
     resetData
 }: PrepareProps): JSX.Element {
-    const { url, fileId, title, thumb, artistThumb, duration, durationString, fileFormat, averageBitrate, averageSampleRate, bpm, track, artist, album, releaseDate } = data;
+    const { url, fileId, title, thumb, artistThumb, artistBio, duration, durationString, fileFormat, averageBitrate, averageSampleRate, bpm, track, artist, album, releaseDate } = data;
 
     const videoDataExists = () => {
         return url && title && url.length && title.length;
@@ -205,36 +205,40 @@ export default function Prepare({
                     </Accordion.Item>
                 </Accordion>
             </Row>
-            <Row>
-                <Accordion defaultActiveKey="0" className="mb-5">
-                    <Accordion.Item eventKey="0">
-                        <Accordion.Header>
-                            <Container fluid>
-                                <h3>Artist</h3>
-                            </Container>
-                        </Accordion.Header>
-                        <Accordion.Body>
-                            <Row>
-                                <Col xs={12} sm={12} md={4}>
-                                    <div className={cx("text-center", classes.thumbnailContainer)}>
-                                        <Image alt={artist} src={artistThumb} fluid className={cx("mx-auto d-block", classes.videoThumbnail)} />
-                                    </div>
-                                </Col>
-                                <Col xs={12} sm={12} md={8}>
-                                    <Row className={classes.trackInfoHeader}>
-                                        <div>
-                                            <h3>{artist}</h3>
-                                        </div>
+            {
+                artistBio && artistBio.length && (
+                    <Row>
+                        <Accordion defaultActiveKey="0" className="mb-5">
+                            <Accordion.Item eventKey="0">
+                                <Accordion.Header>
+                                    <Container fluid>
+                                        <h3>Artist</h3>
+                                    </Container>
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <Row>
+                                        <Col xs={12} sm={12} md={4}>
+                                            <div className={cx("text-center", classes.thumbnailContainer)}>
+                                                <Image alt={artist} src={artistThumb} fluid className={cx("mx-auto d-block", classes.videoThumbnail)} />
+                                            </div>
+                                        </Col>
+                                        <Col xs={12} sm={12} md={8}>
+                                            <Row className={classes.trackInfoHeader}>
+                                                <div>
+                                                    <h3>{artist}</h3>
+                                                </div>
+                                            </Row>
+                                            <Row className={classes.artistInfoBody}>
+                                                <p>{artistBio}</p>
+                                            </Row>
+                                        </Col>
                                     </Row>
-                                    <Row className={classes.trackInfoBody}>
-
-                                    </Row>
-                                </Col>
-                            </Row>
-                        </Accordion.Body>
-                    </Accordion.Item>
-                </Accordion>
-            </Row>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
+                    </Row>
+                )
+            }
             <Row>
                 <InputGroup className='mb-5'>
                     <Form.Control type='text' value={url} size="sm" readOnly />

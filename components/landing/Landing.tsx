@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent, ChangeEvent } from 'react'
+import { useState, FormEvent, ChangeEvent } from 'react'
 import {
     Container,
     Form,
@@ -7,8 +7,6 @@ import {
 } from 'react-bootstrap';
 import classes from './styles/Landing.module.scss'
 import classnames from 'classnames/bind'
-import { KeyedMutator } from 'swr';
-import { CurrentUser } from 'server/lib/session'
 import { login } from 'data/actions/auth/login';
 import useUser from 'data/fetchers/auth/useUser';
 import Spinner from '../ui/Spinner';
@@ -54,20 +52,16 @@ export default function Landing({ }: LandingProps): JSX.Element {
             if (canSubmit()) {
                 setValidated(true);
                 setLoginRequestStatus(Progress.PENDING);
-                // await login(code, handleLoginError);
-                // mutateUser();
                 mutateUser(login(code, handleLoginError), {
                     populateCache: false,
                     revalidate: true
                 })
             } else {
-                // e.stopPropagation();
                 setAccessCode({ code: '' })
             }
         } catch (err) {
             setLoginRequestStatus(Progress.FAILED);
             setAccessCode({ code: '' })
-            // e.stopPropagation();
         }
     }
 

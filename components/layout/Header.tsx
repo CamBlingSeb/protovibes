@@ -12,8 +12,6 @@ export default function Header({ user }: HeaderProps): JSX.Element {
     const { mutateUser } = useUser()
 
     const handleLogout = async () => {
-        // const logoutProxy = await logout();
-        // console.log('Logout Proxy: ', logoutProxy);
         await mutateUser(logout(), {
             populateCache: false,
             revalidate: true

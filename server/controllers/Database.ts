@@ -58,7 +58,8 @@ export class Database {
                     tracks.release_date AS releaseDate,
                     artists.id AS artistId,
                     artists.name AS artist, 
-                    artists.thumb_url AS artistThumb
+                    artists.thumb_url AS artistThumb,
+                    artists.bio AS artistBio
                     FROM sources 
                 JOIN tracks 
                     ON sources.track_id = tracks.id 
@@ -97,7 +98,8 @@ export class Database {
                 releaseDate,
                 artistId,
                 artist,
-                artistThumb
+                artistThumb,
+                artistBio
             } = result[0];
 
             return {
@@ -117,7 +119,8 @@ export class Database {
                 releaseDate: releaseDate && releaseDate.toLocaleString('en-US', { month: "numeric", day: "numeric", year: "numeric" }),
                 artistId: artistId,
                 artist: artist,
-                artistThumb: artistThumb
+                artistThumb: artistThumb,
+                artistBio: artistBio
             }
         } catch (err) {
             return null;
@@ -145,16 +148,19 @@ export class Database {
     /* Artists */
     static async storeArtistData({
         artist,
-        artistThumb
+        artistThumb,
+        bio
     }: {
         artist: string,
-        artistThumb: string
+        artistThumb: string,
+        bio: string
     }) {
         /**@todo - check for preexisting artist before inserting */
         const query = 'INSERT INTO artists SET ?';
         const initialArtist = {
             name: artist,
-            thumb_url: artistThumb
+            thumb_url: artistThumb,
+            bio: bio
         }
 
         const val = [initialArtist];

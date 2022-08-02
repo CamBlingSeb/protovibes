@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-// import { useRouter } from 'next/router';
 import classes from './styles/Dashboard.module.scss'
 import classnames from 'classnames/bind';
-import useUser from 'data/fetchers/auth/useUser';
 import { CurrentUser } from 'server/lib/session';
 import Converter from './converter/Converter'
 import History from './history/History'
@@ -16,15 +14,6 @@ type DashboardProps = {
 let cx = classnames.bind(classes);
 
 export default function Dashboard({ user }: DashboardProps): JSX.Element {
-    // const router = useRouter();
-    // const { user } = useUser({
-    //     redirectTo: '/'
-    // });
-
-    // if (user && !user.isLoggedIn) {
-    //     router.replace('/');
-    // }
-
     const [showingHistory, setShowingHistory] = useState(false);
 
     const handleCloseHistory = () => setShowingHistory(false);
@@ -51,12 +40,10 @@ export default function Dashboard({ user }: DashboardProps): JSX.Element {
                                             />
                                         </Col>
                                     </Row>
-
                                 </Container>
                             </div>
                         </header>
                         <section className={cx('py-5', classes.main)}>
-
                             <Container className={classes.panel}>
                                 <Converter />
                             </Container>
