@@ -48,13 +48,15 @@ export default function Landing({ }: LandingProps): JSX.Element {
         setLoginRequestStatus(Progress.IDLE);
     }
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             if (canSubmit()) {
                 setValidated(true);
                 setLoginRequestStatus(Progress.PENDING);
-                mutateUser(login(code, handleLoginError))
+                await login(code, handleLoginError);
+                mutateUser();
+                // mutateUser(login(code, handleLoginError))
             } else {
                 e.stopPropagation();
                 setAccessCode({ code: '' })
