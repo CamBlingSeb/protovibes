@@ -21,7 +21,7 @@ type LandingProps = {
 let cx = classnames.bind(classes)
 
 export default function Landing({ }: LandingProps): JSX.Element {
-    const { user, mutateUser } = useUser({
+    const { mutateUser } = useUser({
         redirectTo: '/dash',
         redirectIfFound: true
     });
