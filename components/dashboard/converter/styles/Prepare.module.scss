@@ -60,6 +60,8 @@
     // padding-top: 2rem;
     // padding-bottom: 2rem;
     padding: 2rem;
+    max-height: 400px;
+    overflow: auto;
 
     p {
         color: $info;
@@ -67,6 +69,18 @@
         letter-spacing: 1px;
         line-height: 2.8rem;
     }
+
+    &::-webkit-scrollbar {
+        width: 12px;
+        background: $navysteel;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $primary;
+        border-radius: 10px;
+    }
+
+
 }
 
 .currentUrlDisplay {

@@ -22,17 +22,17 @@ export async function findVideoMetadata(req: NextApiRequest, res: NextApiRespons
         console.log('No Existing Source Data, fetching...');
 
         // hit FastVibes API
-        const data = await axios.get('https://fastvibes-jfmyw.ondigitalocean.app/meta/query', { params: { url: url } }).then(res => res.data)
-        console.log('API Data: ', data);
+        const data = await axios.get('http://127.0.0.1:5000/meta/yt', { params: { url: url } }).then(res => res.data)
+        // console.log('API Data: ', data);
 
         // store artist in database
         const artistData = await Database.storeArtistData({
             artist: data.artist,
             artistThumb: data.artistThumb,
-            bio: data.artistBio
+            bio: data.artistBio,
+            mbid: data.artistMBID
         });
         const artistId = artistData && artistData.artistId;
-        // console.log('Artist ID: ', artistId);
         // store track in database
         const trackData = await Database.storeTrackData({
             trackTitle: data.track,
@@ -43,7 +43,6 @@ export async function findVideoMetadata(req: NextApiRequest, res: NextApiRespons
             bpm: data.bpm
         });
         const trackId = trackData && trackData.trackId;
-        // console.log('Track ID: ', trackId);
 
         // store source data in database
         const sourceData = await Database.storeSourceData({

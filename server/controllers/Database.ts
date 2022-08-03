@@ -149,26 +149,47 @@ export class Database {
     static async storeArtistData({
         artist,
         artistThumb,
-        bio
+        bio,
+        mbid
     }: {
         artist: string,
         artistThumb: string,
-        bio: string
+        bio: string,
+        mbid?: string
     }) {
-        /**@todo - check for preexisting artist before inserting */
-        const query = 'INSERT INTO artists SET ?';
-        const initialArtist = {
-            name: artist,
-            thumb_url: artistThumb,
-            bio: bio
-        }
-
-        const val = [initialArtist];
 
         try {
+            // Check for existing artist
+
+            const query1 = mbid ? 'SELECT id, name, mbid FROM artists WHERE mbid = ? OR name = ?' : 'SELECT name, mbid FROM artists WHERE name = ?';
+            const val1 = mbid ? [mbid, artist] : [artist];
+
+            const checkResult = await executeQuery({
+                query: query1,
+                values: val1
+            })
+
+            console.log('checkResult: ', checkResult);
+            if (checkResult.length > 0) {
+                return {
+                    artist: checkResult[0].name,
+                    artistId: checkResult[0].id
+                }
+            }
+
+            // Insert new artist if none found
+            const query2 = 'INSERT INTO artists SET ?';
+            const initialArtist = {
+                name: artist,
+                thumb_url: artistThumb,
+                bio: bio,
+                mbid: mbid
+            }
+
+            const val2 = [initialArtist];
             const result = await executeQuery({
-                query: query,
-                values: val
+                query: query2,
+                values: val2
             })
             const artistId = result.insertId;
 
@@ -199,23 +220,40 @@ export class Database {
         deezerId: string;
         bpm: number
     }) {
-        /**@todo - check for preexisting track before inserting */
-        const query = 'INSERT INTO tracks SET ?';
-        const initialTrack = {
-            title: trackTitle,
-            artist_id: artistId,
-            release_date: releaseDate,
-            bpm: bpm,
-            deezer_id: deezerId,
-            isrc: isrc
-        }
-
-        const val = [initialTrack];
 
         try {
+            // check for existing track by name and artist
+            const query1 = 'SELECT * FROM tracks WHERE title = ? AND artist_id = ?';
+            const val1 = [trackTitle, artistId];
+
+            const checkResult = await executeQuery({
+                query: query1,
+                values: val1
+            })
+
+            console.log('checkResult: ', checkResult);
+            if (checkResult.length > 0) {
+                return {
+                    title: checkResult[0].title,
+                    trackId: checkResult[0].id,
+                    artistId: checkResult[0].artist_id
+                }
+            }
+
+            const query2 = 'INSERT INTO tracks SET ?';
+            const initialTrack = {
+                title: trackTitle,
+                artist_id: artistId,
+                release_date: releaseDate,
+                bpm: bpm,
+                deezer_id: deezerId,
+                isrc: isrc
+            }
+
+            const val2 = [initialTrack];
             const result = await executeQuery({
-                query: query,
-                values: val
+                query: query2,
+                values: val2
             })
             const trackId = result.insertId;
 
